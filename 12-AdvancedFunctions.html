@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced functions</title>
+  <link rel="stylesheet" href="styles/11-LoopTodo.css">
+  </style>
+</head>
+<body>
+
+  <div class="inputDiv">
+    <input class="htmlInput" type="text" placeholder="Add a To do">
+    <input class="dateInput" type="date">
+    <input class="timeInput" type="time">
+    <button class="addTodoButton" onclick="addTodo()">Add Todo</button>   
+    
+  </div>
+ 
+  <div class="addedDiv"></div>
+  
+  <button class="eventListenerButton">EventListener</button>
+
+<script>
+
+    const object3 = {
+      method: () => {},
+      method() {},  //Shorthand method syntax
+    }
+
+    const [x, y, z] = [1, 2, 3] //sparar respektive nummer i en variabel direkt
+    console.log(x, y, z); //Output 1, 2, 3
+    
+
+    const function1 = function greeting(){
+      console.log('hello');
+    }
+
+    const function2 = () => {  //Anonymous function, can be called with the variable name. Sparas de i variabler fungerar inte hoisting
+      console.log('hello2');
+    }
+    function1();
+    function2();
+
+    const object1 = {
+      num: 2,
+      fun: function() {console.log('Hello3')}, //function inside and object is called a method
+    }
+    object1.fun();
+
+    function display(param){
+      console.log(param);
+      param();
+    }
+    display(function greetings2(){console.log('hello4')});
+
+    setTimeout(function1, 2000); //execute function1 efter 2s Asynkroniserad kod
+    
+    setInterval(() => console.log('interval'), 55000);
+
+    ['make dinner', 'wash dishes', 'watch youtube'
+    ].forEach((param, index) => {
+      console.log(param, index);
+      if (param === 'wash dishes'){
+        return;  //Gör samma sak som continue i en for loop
+      }
+      console.log(param, index);
+    });
+
+    
+    const countArray = JSON.parse(localStorage.getItem('todoList')) || [{
+      name: '1',
+      dueDate: '2021-11-25',
+      time: '15.00'
+    }, {
+      name: '2',
+      dueDate: '2021-11-25',
+      time: '15.00'
+    }, {
+      name: '3',
+      dueDate: '2021-11-25',
+      time: '15.00'
+    }];
+
+    let addedHTML = [];
+    let div = document.querySelector('.addedDiv');
+
+    renderTodoList()
+
+    function renderTodoList(){
+      let todoListHTML = '';
+      countArray.forEach( (todoObject, index) => {
+        // for (let i = 0; i < countArray.length; i++) {
+        // const todoObject = countArray[i];
+        //const number = countArray.number;
+        //const dueDate = countArray.dueDate;
+        const { name, dueDate, time } = todoObject; //"Destructering" possible in this case if the variable-name is the same as the property-name 
+        const addHTML = 
+        ` <div>${ name }</div>
+          <div>${ dueDate }</div>
+          <div>${ time }</div> 
+          <button class="deleteButton">Delete</button>
+          </div>`;
+        todoListHTML += addHTML;
+      })    
+      console.log(todoListHTML);
+      
+      div.innerHTML = todoListHTML;
+    };
+
+    //Render the input done and the previous rendered array
+    function addTodo(){
+      const input = document.querySelector('.htmlInput');
+      const name = input.value;
+
+      const timeInput = document.querySelector('.timeInput');
+      const time = timeInput.value;
+
+      const dateInput = document.querySelector('.dateInput');
+      const dueDate = dateInput.value;
+
+      countArray.push({name, dueDate, time}); //instead of property value pair with same name {name: name, dueDate: dueDate, time: time} require same name on variable as in the array of objects
+      console.log(countArray);
+      input.value = '';
+      
+      renderTodoList();
+      saveToStorage();
+    }
+    //Spara tidigare värden
+    function saveToStorage() {
+      localStorage.setItem('todoList', JSON.stringify(countArray));
+    }
+
+    const eventButton = document.querySelector('.eventListenerButton');
+
+    eventButton.addEventListener('click', function1);
+
+    //Ger en deletebutton till varje todo vid generation
+    document.querySelectorAll('.deleteButton')
+      .forEach( (deleteButton, index) =>{
+        deleteButton.addEventListener('click', () => {
+          countArray.splice(index, 1); 
+          renderTodoList();
+        })
+      })
+    
+    
+  </script>
+</body>
+</html>
