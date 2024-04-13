@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>"2nd web"</title>
+    <style>
+    .yellow-button {
+        background-color: yellow; 
+        color: black;
+        border-radius: 5px;
+    }
+    .orange-button {
+        background-color: orange;
+        border-radius: 5px;
+    }
+    </style>
+</head>
+<body>
+    <button class="yellow-button" onclick="alert('Added')">Add to cart</button>
+    <button class="orange-button">Buy now</button>
+    <br><br>
+    <button onclick="alert(`Cart contains: ${cartQuantity} items`)">Show Quantity</button>
+    <!--Adds 1 to our cart-->
+    <button onclick="cartQuantity++">Add to cart</button>
+    <!--Adds 2 and 3 to our cart-->
+    <button onclick="cartQuantity += 2">+2</button>
+    <button onclick="cartQuantity += 3">+3</button>
+    <button onclick="cartQuantity = 0; alert('Cart reset')">Reset cart</button>
+
+    <script>
+        let price = 5 + 3   
+        console.log('Total cost: $' + price)
+        //Concatenation
+        console.log('Items (' + (1 + 1) + '): $' + (2095 + 799) / 100)
+        //Interpolation
+        console.log(`Items (${1 + 1}): $${(2095 + 799) / 100}`)
+        console.log(`Total cost: $${(599 + 295) / 100}\nEstimated tax (10%): $${Math.round(((599 + 295) * 0.1) / 100 )}\nThank you, come again!`)
+
+        let cartQuantity = 0
+
+        let name = 'Hugo'
+        console.log(`My name is: ${name}`);
+        let cost = 1 + 2 * 3 + 9;
+        let tax = cost * 0.1;
+        console.log(`Total before tax: $${cost}\nTax (10%): $${tax}\nTotal after tax: $${cost + tax}`);
+
+        /* Samma sak som if, else statement, fördelen är att den kan sparas i en variabel
+        const result = 0 ? 'true' : 'false';
+        console.log(result) Output = false
+        */
+    </script>
+   
+
+</body>
+</html>
